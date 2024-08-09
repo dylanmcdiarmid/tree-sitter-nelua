@@ -1,4 +1,7 @@
 do return #[a]# end
 ## print(a)
 ##[=[g(a)]=]
-return @variant(integer, integer)
+for x in y do
+	continue
+end
+return @function(): void

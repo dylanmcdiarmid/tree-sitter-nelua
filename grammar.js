@@ -20,9 +20,9 @@ const PREC = {
   POWER: 13, // ^
   UNARY: 14, // not - # ~ $
 
-  TPTR: 3, // *T
-  TOPT: 4, // ?T
-  TARR: 5, // []T
+  TUNARY: 3, // *T
+  TVARIS: 4, // T|I
+  TGENERIC: 5, // T(v)
 
   STATEMENT: 15,
   PROGRAM: 16,
@@ -61,6 +61,7 @@ module.exports = grammar({
             $.while_statement,
             $.repeat_statement,
             $.if_statement,
+            $.for_statement,
             $.switch_statement,
             $.preproces_statement,
           ),
@@ -128,7 +129,10 @@ module.exports = grammar({
         alias("end", $.while_end),
       ),
 
-  // _fornum_statement: $ => ,
+    _fornum_statement: $ => seq($.iddecl, "=", $._expression, ",", optional(choice("~=", ">=", ">", "<=", "<")), $._expression,
+      optional_seq(",", $._expression), alias("do", $.for_do), $._block, alias("end", $.for_end)),
+    _forin_statement: $ => seq($._iddecls, alias("in", $.for_in), $._expression, alias("do", $.for_do), $._block, alias("end", $.for_end)),
+    for_statement: $ => seq(alias("for", $.for_start), choice($._fornum_statement, $._forin_statement)),
 
     repeat_statement: $ =>
       seq(
@@ -198,7 +202,7 @@ module.exports = grammar({
           $.id,
           $.paren,
           $.do_expr,
-          $.type,
+          $.type_expr,
           $.init_list,
           $.binary_operations,
           $.unary_operations,
@@ -207,7 +211,7 @@ module.exports = grammar({
 
     varargs: $ => "...",
 
-    type: $ => seq("@", $._typeexpr),
+    type_expr: $ => seq("@", $.type),
 
     nil: $ => "nil",
 
@@ -315,51 +319,170 @@ module.exports = grammar({
     preprocess_name: $ =>
       seq("#|", alias($._expression, $.preprocess_content), "|#"),
 
-    init_list: $ => seq("{", optional_seq($._field, repeat_seq($._fieldsep, $._field), optional($._fieldsep)), "}"),
+    init_list: $ =>
+      seq(
+        "{",
+        optional_seq(
+          $._field,
+          repeat_seq($._fieldsep, $._field),
+          optional($._fieldsep),
+        ),
+        "}",
+      ),
     _field: $ => choice($.pair, $._expression),
     _fieldsep: $ => choice(",", ";"),
-    pair: $ => choice(
-      seq("[", $._expression, "]", "=", $._expression),
-      seq($._name, "=", $._expression),
-      seq("=", $.id)
-    ),
+
+    pair: $ =>
+      choice(
+        seq("[", $._expression, "]", "=", $._expression),
+        seq($._name, "=", $._expression),
+        seq("=", $.id),
+      ),
+
+    _typedecl: $ =>
+      seq(alias($._name, $.argname), ":", $.type, optional($._annots)),
 
     id: $ => choice($.preprocess_expr, $._name),
-    iddecl: $ => seq($._name, optional_seq(":", $.id)),
+    iddecl: $ => seq($._iddecl, optional($._annots)),
+    _iddecl: $ => seq(alias($._name, $.id), optional_seq(":", $.id)),
+
+    annotation: $ =>
+      seq(alias($._name, $.annotname), alias($._annotargs, $.args)),
+
     _name: $ => choice($.preprocess_name, /[_a-zA-Z][_a-zA-Z0-9]*/),
+
+    // Lists
+
+    _annotargs: $ =>
+      choice(
+        seq(
+          "(",
+          optional_seq($._expression, repeat_seq(",", $._expression)),
+          ")",
+        ),
+        $.init_list,
+        $.string,
+        $.preprocess_expr,
+      ),
+
+    _funcrets: $ =>
+      choice(
+        seq("(", $.type, repeat_seq(",", $.type), ")"),
+        $.type,
+      ),
+
+    _annots: $ => seq("<", $.annotation, repeat_seq(",", $.annotation), ">"),
+    _iddecls: $ => seq($._iddecl, repeat_seq(",", $._iddecl)),
 
     // Types
 
-    record_type: $ => seq("record", "{", optional_seq($.record_field, repeat_seq($._fieldsep, $.record_field), optional($._fieldsep)), "}"),
-    record_field: $ => seq($._name, ":", $._typeexpr),
+    record_type: $ =>
+      seq(
+        "record",
+        "{",
+        optional_seq(
+          $.record_field,
+          repeat_seq($._fieldsep, $.record_field),
+          optional($._fieldsep),
+        ),
+        "}",
+      ),
+    record_field: $ => seq($._name, ":", $.type),
 
-    union_type: $ => seq("union", "{", optional_seq($.union_field, repeat_seq($._fieldsep, $.union_field), optional($._fieldsep)), "}"),
-    union_field: $ => choice(seq($._name, ":", $._typeexpr), seq($._typeexpr)),
+    union_type: $ =>
+      seq(
+        "union",
+        "{",
+        optional_seq(
+          $.union_field,
+          repeat_seq($._fieldsep, $.union_field),
+          optional($._fieldsep),
+        ),
+        "}",
+      ),
+    union_field: $ => choice(seq($._name, ":", $.type), seq($.type)),
 
-    enum_type: $ => seq("enum", optional_seq("(", $._typeexpr,")"), "{", optional_seq($.enum_field, repeat_seq($._fieldsep, $.enum_field), optional($._fieldsep)),"}"),
+    enum_type: $ =>
+      seq(
+        "enum",
+        optional_seq("(", $.type, ")"),
+        "{",
+        optional_seq(
+          $.enum_field,
+          repeat_seq($._fieldsep, $.enum_field),
+          optional($._fieldsep),
+        ),
+        "}",
+      ),
     enum_field: $ => seq($._name, optional_seq("=", $._expression)),
 
-    array_type: $ => seq("array", "(", $._typeexpr, optional_seq(",", $._expression), ")"),
+    func_type: $ =>
+      seq(
+        "function",
+        "(",
+        optional($._functypeargs),
+        ")",
+        optional_seq(":", $._funcrets),
+      ),
 
-    pointer_type: $ => seq("pointer", "(", $._typeexpr, ")"),
+    array_type: $ =>
+      seq("array", "(", $.type, optional_seq(",", $._expression), ")"),
 
-    variant_type: $ => seq("variant", "(", $._typearg, repeat_seq(",", $._typearg), ")"),
+    pointer_type: $ => seq("pointer", "(", $.type, ")"),
 
-    varargs_type: $ => seq("...", optional_seq(":", $._name)),
+    variant_type: $ => seq("variant", "(", $._typeargs, ")"),
+
+    varargs_type: $ => prec(2, seq("...", optional_seq(":", $._name))),
 
     // Type lists
 
-    _typearg: $ => prec(1, choice($._typeexpr, seq("(", $._expression, ")"), $._expression)),
+    _typearg: $ =>
+      prec(1, choice($.type, seq("(", $._expression, ")"), $._expression)),
+    _typeargs: $ => seq($._typearg, repeat_seq(",", $._typearg)),
 
-    _typeexpr: $ => prec(2, choice(
-      $.id,
-      $.record_type,
-      $.union_type,
-      $.enum_type,
-      $.array_type,
-      $.pointer_type,
-      $.variant_type
-    )),
+    _functypeargs: $ =>
+      choice(
+        seq(
+          $._functypearg,
+          repeat_seq(",", $._functypearg),
+          optional_seq($.varargs_type),
+        ),
+        $.varargs_type,
+      ),
+    _functypearg: $ => choice($._typedecl, $._typearg),
+
+    _typegeneric: $ => choice(seq("(", $._typeargs, ")"), $.init_list),
+
+    type: $ =>
+      prec(
+        2,
+        choice(
+          $.id,
+          $.record_type,
+          $.union_type,
+          $.enum_type,
+          $.func_type,
+          $.array_type,
+          $.pointer_type,
+          $.variant_type,
+          prec.left(
+            PREC.TGENERIC,
+            seq(alias($.id, $.genericname), $._typegeneric),
+          ),
+          repeat1_seq(
+            choice(
+              ...["*", "?", seq("[", optional($._expression), "]")].map(c =>
+                prec.left(PREC.TUNARY, c),
+              ),
+            ),
+            $.type,
+          ),
+          prec.left(
+            PREC.TVARIS,
+            seq($.type, "|", $.type, repeat_seq("|", $.type)),
+          ),
+        ),
+      ),
 
     comment: $ =>
       choice(
@@ -374,5 +497,12 @@ module.exports = grammar({
   },
 });
 
-function optional_seq(...args) { return optional(seq(...args)); }
-function repeat_seq(...args) { return repeat(seq(...args)); }
+function optional_seq(...args) {
+  return optional(seq(...args));
+}
+function repeat_seq(...args) {
+  return repeat(seq(...args));
+}
+function repeat1_seq(...args) {
+  return repeat1(seq(...args));
+}
