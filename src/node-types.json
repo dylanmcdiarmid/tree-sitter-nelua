@@ -1,32 +1,93 @@
 [
   {
-    "type": "bin_number",
+    "type": "array_type",
     "named": true,
-    "fields": {
-      "exponent": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "exp_digits",
-            "named": true
-          }
-        ]
-      },
-      "number": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "bin_prefix",
-            "named": true
-          }
-        ]
-      }
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
     }
   },
   {
-    "type": "bin_prefix",
+    "type": "bin_number",
     "named": true,
     "fields": {}
   },
@@ -47,7 +108,15 @@
           "named": true
         },
         {
+          "type": "do_expr",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
           "named": true
         },
         {
@@ -63,6 +132,10 @@
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -72,6 +145,10 @@
         },
         {
           "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
           "named": true
         }
       ]
@@ -90,86 +167,321 @@
   {
     "type": "dec_number",
     "named": true,
-    "fields": {
-      "exponent": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "exp_digits",
-            "named": true
-          }
-        ]
-      },
-      "number": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "dec_prefix",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "dec_prefix",
-    "named": true,
     "fields": {}
   },
   {
-    "type": "hex_number",
-    "named": true,
-    "fields": {
-      "exponent": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "exp_digits",
-            "named": true
-          }
-        ]
-      },
-      "number": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "hex_prefix",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
-    "type": "hex_prefix",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "id",
+    "type": "defer_statement",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "name",
+          "type": "break_statement",
           "named": true
         },
         {
-          "type": "preprocess_expr",
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_end",
+          "named": true
+        },
+        {
+          "type": "defer_start",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "name",
+    "type": "do_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_end",
+          "named": true
+        },
+        {
+          "type": "do_start",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "do_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_end",
+          "named": true
+        },
+        {
+          "type": "do_start",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "enum_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "enum_field",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "goto_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -184,11 +496,382 @@
     }
   },
   {
-    "type": "number",
+    "type": "hex_number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "id",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "preprocess_expr",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "if_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "if_else",
+          "named": true
+        },
+        {
+          "type": "if_elseif",
+          "named": true
+        },
+        {
+          "type": "if_end",
+          "named": true
+        },
+        {
+          "type": "if_start",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "if_then",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "in_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "init_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "pair",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "preprocess_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "module_return_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -200,7 +883,195 @@
           "named": true
         },
         {
+          "type": "exponent",
+          "named": true
+        },
+        {
           "type": "hex_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pair",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "paren",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pointer_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preproces_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "preprocess_content",
           "named": true
         }
       ]
@@ -237,12 +1108,70 @@
     }
   },
   {
-    "type": "source_file",
+    "type": "record_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_type",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
       "required": false,
+      "types": [
+        {
+          "type": "record_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "repeat_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
       "types": [
         {
           "type": "binary_operations",
@@ -253,7 +1182,51 @@
           "named": true
         },
         {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "label",
           "named": true
         },
         {
@@ -269,7 +1242,98 @@
           "named": true
         },
         {
-          "type": "shebang",
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_start",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_until",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
           "named": true
         },
         {
@@ -283,6 +1347,61 @@
         {
           "type": "unary_operations",
           "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "module_return_statement",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "shebang",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
         }
       ]
     }
@@ -290,17 +1409,149 @@
   {
     "type": "string",
     "named": true,
-    "fields": {
-      "content": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "string_content",
-            "named": true
-          }
-        ]
-      }
+    "fields": {}
+  },
+  {
+    "type": "switch_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_case",
+          "named": true
+        },
+        {
+          "type": "switch_do",
+          "named": true
+        },
+        {
+          "type": "switch_else",
+          "named": true
+        },
+        {
+          "type": "switch_end",
+          "named": true
+        },
+        {
+          "type": "switch_start",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "switch_then",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "while_statement",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -312,7 +1563,31 @@
       "required": true,
       "types": [
         {
-          "type": "name",
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "variant_type",
           "named": true
         }
       ]
@@ -335,7 +1610,15 @@
           "named": true
         },
         {
+          "type": "do_expr",
+          "named": true
+        },
+        {
           "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
           "named": true
         },
         {
@@ -351,6 +1634,10 @@
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -360,6 +1647,291 @@
         },
         {
           "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_field",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "union_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "union_field",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "varargs",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "variant_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "enum_type",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "union_type",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "variant_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "while_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_operations",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "break_statement",
+          "named": true
+        },
+        {
+          "type": "continue_statement",
+          "named": true
+        },
+        {
+          "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_expr",
+          "named": true
+        },
+        {
+          "type": "do_statement",
+          "named": true
+        },
+        {
+          "type": "fallthrough_statement",
+          "named": true
+        },
+        {
+          "type": "goto_statement",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "init_list",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "nil",
+          "named": true
+        },
+        {
+          "type": "nilptr",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "paren",
+          "named": true
+        },
+        {
+          "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "repeat_statement",
+          "named": true
+        },
+        {
+          "type": "return_statement",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "switch_statement",
+          "named": true
+        },
+        {
+          "type": "type",
+          "named": true
+        },
+        {
+          "type": "unary_operations",
+          "named": true
+        },
+        {
+          "type": "varargs",
+          "named": true
+        },
+        {
+          "type": "while_do",
+          "named": true
+        },
+        {
+          "type": "while_end",
+          "named": true
+        },
+        {
+          "type": "while_start",
+          "named": true
+        },
+        {
+          "type": "while_statement",
           "named": true
         }
       ]
@@ -398,11 +1970,23 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "*",
     "named": false
   },
   {
     "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
     "named": false
   },
   {
@@ -422,6 +2006,10 @@
     "named": false
   },
   {
+    "type": "...",
+    "named": false
+  },
+  {
     "type": "/",
     "named": false
   },
@@ -438,6 +2026,18 @@
     "named": false
   },
   {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "::",
+    "named": false
+  },
+  {
+    "type": ";",
+    "named": false
+  },
+  {
     "type": "<",
     "named": false
   },
@@ -447,6 +2047,10 @@
   },
   {
     "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
     "named": false
   },
   {
@@ -474,6 +2078,14 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
     "type": "]#",
     "named": false
   },
@@ -486,11 +2098,75 @@
     "named": false
   },
   {
-    "type": "exp_digits",
+    "type": "array",
+    "named": false
+  },
+  {
+    "type": "break_statement",
+    "named": true
+  },
+  {
+    "type": "continue_statement",
+    "named": true
+  },
+  {
+    "type": "defer_end",
+    "named": true
+  },
+  {
+    "type": "defer_start",
+    "named": true
+  },
+  {
+    "type": "do_end",
+    "named": true
+  },
+  {
+    "type": "do_start",
+    "named": true
+  },
+  {
+    "type": "enum",
+    "named": false
+  },
+  {
+    "type": "exponent",
+    "named": true
+  },
+  {
+    "type": "fallthrough_statement",
     "named": true
   },
   {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "goto",
+    "named": false
+  },
+  {
+    "type": "if_else",
+    "named": true
+  },
+  {
+    "type": "if_elseif",
+    "named": true
+  },
+  {
+    "type": "if_end",
+    "named": true
+  },
+  {
+    "type": "if_start",
+    "named": true
+  },
+  {
+    "type": "if_then",
+    "named": true
+  },
+  {
+    "type": "in",
     "named": false
   },
   {
@@ -510,19 +2186,83 @@
     "named": false
   },
   {
+    "type": "pointer",
+    "named": false
+  },
+  {
     "type": "preprocess_content",
     "named": true
+  },
+  {
+    "type": "record",
+    "named": false
+  },
+  {
+    "type": "repeat_start",
+    "named": true
+  },
+  {
+    "type": "repeat_until",
+    "named": true
+  },
+  {
+    "type": "return",
+    "named": false
   },
   {
     "type": "shebang",
     "named": true
   },
   {
-    "type": "string_content",
+    "type": "switch_case",
+    "named": true
+  },
+  {
+    "type": "switch_do",
+    "named": true
+  },
+  {
+    "type": "switch_else",
+    "named": true
+  },
+  {
+    "type": "switch_end",
+    "named": true
+  },
+  {
+    "type": "switch_start",
+    "named": true
+  },
+  {
+    "type": "switch_then",
     "named": true
   },
   {
     "type": "true",
+    "named": false
+  },
+  {
+    "type": "union",
+    "named": false
+  },
+  {
+    "type": "variant",
+    "named": false
+  },
+  {
+    "type": "while_do",
+    "named": true
+  },
+  {
+    "type": "while_end",
+    "named": true
+  },
+  {
+    "type": "while_start",
+    "named": true
+  },
+  {
+    "type": "{",
     "named": false
   },
   {
@@ -531,6 +2271,10 @@
   },
   {
     "type": "|#",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   },
   {
