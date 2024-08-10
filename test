@@ -1,7 +1,8 @@
 do return #[a]# end
 ## print(a)
 ##[=[g(a)]=]
-for x in y do
+for i = 1, >=2, 3 do
 	continue
 end
-return @function(): void
+#["a"]#(1, 2, { =c })
+return a()
