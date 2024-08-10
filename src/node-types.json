@@ -65,10 +65,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -144,10 +140,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -216,10 +208,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -295,10 +283,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -351,43 +335,12 @@
     "fields": {}
   },
   {
-    "type": "call",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "call_method",
-          "named": true
-        },
-        {
-          "type": "default_call",
-          "named": true
-        },
-        {
-          "type": "dot_index",
-          "named": true
-        },
-        {
-          "type": "id",
-          "named": true
-        },
-        {
-          "type": "key_index",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "call_method",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binary_operations",
@@ -398,11 +351,11 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "do_expr",
           "named": true
         },
         {
-          "type": "do_expr",
+          "type": "funcname",
           "named": true
         },
         {
@@ -430,10 +383,6 @@
           "named": true
         },
         {
-          "type": "preprocess_name",
-          "named": true
-        },
-        {
           "type": "string",
           "named": true
         },
@@ -453,9 +402,53 @@
     }
   },
   {
+    "type": "callsuffix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "call_method",
+          "named": true
+        },
+        {
+          "type": "default_call",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "comment",
     "named": true,
-    "fields": {}
+    "fields": {
+      "content": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "block_content",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_end",
+          "named": true
+        },
+        {
+          "type": "block_start",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "dec_number",
@@ -476,10 +469,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -542,7 +531,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -562,6 +551,10 @@
           "named": true
         },
         {
+          "type": "do_expr",
+          "named": true
+        },
+        {
           "type": "do_statement",
           "named": true
         },
@@ -578,6 +571,10 @@
           "named": true
         },
         {
+          "type": "id",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
@@ -586,11 +583,23 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "label",
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -621,7 +630,7 @@
       "required": true,
       "types": [
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -630,6 +639,10 @@
         },
         {
           "type": "do_end",
+          "named": true
+        },
+        {
+          "type": "do_expr",
           "named": true
         },
         {
@@ -645,7 +658,15 @@
           "named": true
         },
         {
+          "type": "id",
+          "named": true
+        },
+        {
           "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "indexsuffix",
           "named": true
         },
         {
@@ -653,7 +674,15 @@
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -684,7 +713,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -697,6 +726,10 @@
         },
         {
           "type": "do_end",
+          "named": true
+        },
+        {
+          "type": "do_expr",
           "named": true
         },
         {
@@ -720,6 +753,10 @@
           "named": true
         },
         {
+          "type": "id",
+          "named": true
+        },
+        {
           "type": "if_statement",
           "named": true
         },
@@ -728,11 +765,23 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "label",
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -770,7 +819,7 @@
     }
   },
   {
-    "type": "enum_field",
+    "type": "enum_type",
     "named": true,
     "fields": {},
     "children": {
@@ -783,10 +832,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -826,6 +871,10 @@
           "named": true
         },
         {
+          "type": "type",
+          "named": true
+        },
+        {
           "type": "type_expr",
           "named": true
         },
@@ -835,25 +884,6 @@
         },
         {
           "type": "varargs",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "enum_type",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "enum_field",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -880,7 +910,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -936,15 +966,15 @@
           "named": true
         },
         {
-          "type": "iddecl",
-          "named": true
-        },
-        {
           "type": "if_statement",
           "named": true
         },
         {
           "type": "in_statement",
+          "named": true
+        },
+        {
+          "type": "indexsuffix",
           "named": true
         },
         {
@@ -973,6 +1003,10 @@
         },
         {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -1030,6 +1064,21 @@
     }
   },
   {
+    "type": "funcname",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "preprocess_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "genericargs",
     "named": true,
     "fields": {},
@@ -1043,10 +1092,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -1159,25 +1204,6 @@
     }
   },
   {
-    "type": "iddecl",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "annotation",
-          "named": true
-        },
-        {
-          "type": "id",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "if_statement",
     "named": true,
     "fields": {},
@@ -1198,7 +1224,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -1262,6 +1288,10 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "init_list",
           "named": true
         },
@@ -1287,6 +1317,10 @@
         },
         {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -1341,10 +1375,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -1392,6 +1422,25 @@
     }
   },
   {
+    "type": "indexsuffix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "dot_index",
+          "named": true
+        },
+        {
+          "type": "key_index",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "init_list",
     "named": true,
     "fields": {},
@@ -1405,10 +1454,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -1476,10 +1521,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -1558,10 +1599,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -1655,10 +1692,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -1723,10 +1756,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -1796,9 +1825,17 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "block_end",
+          "named": true
+        },
+        {
+          "type": "block_start",
+          "named": true
+        },
         {
           "type": "preprocess_content",
           "named": true
@@ -1812,10 +1849,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "preprocess_content",
+          "named": true
+        },
+        {
+          "type": "preprocess_name",
           "named": true
         }
       ]
@@ -1837,25 +1878,6 @@
     }
   },
   {
-    "type": "record_field",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "preprocess_name",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "record_type",
     "named": true,
     "fields": {},
@@ -1864,7 +1886,11 @@
       "required": false,
       "types": [
         {
-          "type": "record_field",
+          "type": "preprocess_name",
+          "named": true
+        },
+        {
+          "type": "type",
           "named": true
         }
       ]
@@ -1891,7 +1917,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -1935,6 +1961,10 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "init_list",
           "named": true
         },
@@ -1960,6 +1990,10 @@
         },
         {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -2023,10 +2057,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -2129,10 +2159,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -2188,11 +2214,15 @@
       "required": false,
       "types": [
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
           "type": "defer_statement",
+          "named": true
+        },
+        {
+          "type": "do_expr",
           "named": true
         },
         {
@@ -2204,7 +2234,15 @@
           "named": true
         },
         {
+          "type": "id",
+          "named": true
+        },
+        {
           "type": "if_statement",
+          "named": true
+        },
+        {
+          "type": "indexsuffix",
           "named": true
         },
         {
@@ -2216,7 +2254,15 @@
           "named": true
         },
         {
+          "type": "paren",
+          "named": true
+        },
+        {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -2241,7 +2287,25 @@
   {
     "type": "string",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "block_content",
+          "named": true
+        },
+        {
+          "type": "block_end",
+          "named": true
+        },
+        {
+          "type": "block_start",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "switch_statement",
@@ -2264,7 +2328,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -2308,6 +2372,10 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "init_list",
           "named": true
         },
@@ -2333,6 +2401,10 @@
         },
         {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -2412,10 +2484,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -2533,10 +2601,6 @@
           "named": true
         },
         {
-          "type": "call",
-          "named": true
-        },
-        {
           "type": "do_expr",
           "named": true
         },
@@ -2584,12 +2648,12 @@
     }
   },
   {
-    "type": "union_field",
+    "type": "union_type",
     "named": true,
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "preprocess_name",
@@ -2603,24 +2667,24 @@
     }
   },
   {
-    "type": "union_type",
+    "type": "varargs",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "varargs_type",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": false,
       "types": [
         {
-          "type": "union_field",
+          "type": "preprocess_name",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "varargs",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "variant_type",
@@ -2636,10 +2700,6 @@
         },
         {
           "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "call",
           "named": true
         },
         {
@@ -2714,7 +2774,7 @@
           "named": true
         },
         {
-          "type": "call",
+          "type": "callsuffix",
           "named": true
         },
         {
@@ -2758,6 +2818,10 @@
           "named": true
         },
         {
+          "type": "indexsuffix",
+          "named": true
+        },
+        {
           "type": "init_list",
           "named": true
         },
@@ -2783,6 +2847,10 @@
         },
         {
           "type": "preproces_statement",
+          "named": true
+        },
+        {
+          "type": "preprocess_expr",
           "named": true
         },
         {
@@ -2999,6 +3067,18 @@
   {
     "type": "array",
     "named": false
+  },
+  {
+    "type": "block_content",
+    "named": true
+  },
+  {
+    "type": "block_end",
+    "named": true
+  },
+  {
+    "type": "block_start",
+    "named": true
   },
   {
     "type": "break_statement",

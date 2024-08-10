@@ -1,8 +1,1 @@
-do return #[a]# end
-## print(a)
-##[=[g(a)]=]
-for i = 1, >=2, 3 do
-	continue
-end
-#["a"]#(1, 2, { =c })
-return a()
+return @function(a: record{a:integer} <noinit>): (void, void)

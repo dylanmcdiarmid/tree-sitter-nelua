@@ -31,16 +31,16 @@ const PREC = {
 module.exports = grammar({
   name: "nelua",
 
-  externals: $ => [$.block_start, $.block_content, $.block_end],
+  externals: ($) => [$.block_start, $.block_content, $.block_end],
 
-  extras: $ => [/[\n\r]/, /\s/, $.comment],
+  extras: ($) => [/[\n\r]/, /\s/, $.comment],
 
-  inline: $ => [$._expression],
+  inline: ($) => [$._expression],
 
   rules: {
     // TODO: add the actual grammar rules
 
-    source_file: $ =>
+    source_file: ($) =>
       prec(
         PREC.PROGRAM,
         seq(
@@ -50,11 +50,12 @@ module.exports = grammar({
         ),
       ),
 
-    _statement: $ =>
+    _statement: ($) =>
       prec.right(
         PREC.STATEMENT,
         seq(
           choice(
+            $._call,
             $.label,
             $.do_statement,
             $.defer_statement,
@@ -64,15 +65,14 @@ module.exports = grammar({
             $.for_statement,
             $.switch_statement,
             $.preproces_statement,
-            $._call
           ),
           optional(";"),
         ),
       ),
 
-    shebang: $ => /#![^\n\r]*/,
+    shebang: ($) => /#![^\n\r]*/,
 
-    _last_statement: $ =>
+    _last_statement: ($) =>
       choice(
         $.return_statement,
         $.break_statement,
@@ -82,17 +82,17 @@ module.exports = grammar({
         $.goto_statement,
       ),
 
-    _chunk: $ =>
+    _chunk: ($) =>
       choice(
-        seq(repeat1(seq($._statement)), optional($.last_statement)),
+        seq(repeat1(seq($._statement)), optional($._last_statement)),
         $._last_statement,
       ),
 
-    _block: $ => $._chunk,
+    _block: ($) => $._chunk,
 
-    label: $ => seq("::", $._name, "::"),
+    label: ($) => seq("::", $._name, "::"),
 
-    return_statement: $ =>
+    return_statement: ($) =>
       prec(
         PREC.PRIORITY,
         seq(
@@ -101,27 +101,27 @@ module.exports = grammar({
         ),
       ),
 
-    in_statement: $ => seq("in", $._expression),
+    in_statement: ($) => seq("in", $._expression),
 
-    break_statement: $ => "break",
+    break_statement: ($) => "break",
 
-    continue_statement: $ => "continue",
+    continue_statement: ($) => "continue",
 
-    fallthrough_statement: $ => "fallthrough",
+    fallthrough_statement: ($) => "fallthrough",
 
-    goto_statement: $ => seq("goto", $._name),
+    goto_statement: ($) => seq("goto", $._name),
 
-    do_statement: $ =>
+    do_statement: ($) =>
       seq(alias("do", $.do_start), optional($._block), alias("end", $.do_end)),
 
-    defer_statement: $ =>
+    defer_statement: ($) =>
       seq(
         alias("defer", $.defer_start),
         optional($._block),
         alias("end", $.defer_end),
       ),
 
-    while_statement: $ =>
+    while_statement: ($) =>
       seq(
         alias("while", $.while_start),
         $._expression,
@@ -130,14 +130,14 @@ module.exports = grammar({
         alias("end", $.while_end),
       ),
 
-    for_statement: $ =>
+    for_statement: ($) =>
       seq(
         alias("for", $.for_start),
         choice($._fornum_statement, $._forin_statement),
       ),
-    _fornum_statement: $ =>
+    _fornum_statement: ($) =>
       seq(
-        $.iddecl,
+        $._iddecl,
         "=",
         $._expression,
         ",",
@@ -148,9 +148,9 @@ module.exports = grammar({
         optional($._block),
         alias("end", $.for_end),
       ),
-    _forin_statement: $ =>
+    _forin_statement: ($) =>
       seq(
-        $.iddecls,
+        $._iddecls,
         alias("in", $.for_in),
         $._expression,
         alias("do", $.for_do),
@@ -158,7 +158,7 @@ module.exports = grammar({
         alias("end", $.for_end),
       ),
 
-    repeat_statement: $ =>
+    repeat_statement: ($) =>
       seq(
         alias("repeat", $.repeat_start),
         optional($._block),
@@ -166,7 +166,7 @@ module.exports = grammar({
         $._expression,
       ),
 
-    if_statement: $ =>
+    if_statement: ($) =>
       seq(
         alias("if", $.if_start),
         $._expression,
@@ -184,7 +184,7 @@ module.exports = grammar({
         alias("end", $.if_end),
       ),
 
-    switch_statement: $ =>
+    switch_statement: ($) =>
       seq(
         alias("switch", $.switch_start),
         $._expression,
@@ -201,7 +201,7 @@ module.exports = grammar({
         alias("end", $.switch_end),
       ),
 
-    preproces_statement: $ =>
+    preproces_statement: ($) =>
       choice(
         seq("##", alias(/[^\n\r]*/, $.preprocess_content)),
         seq(
@@ -214,7 +214,7 @@ module.exports = grammar({
 
     // Expressions
 
-    _expression: $ =>
+    _expression: ($) =>
       prec.left(
         choice(
           $.number,
@@ -233,21 +233,21 @@ module.exports = grammar({
         ),
       ),
 
-    exprprim: $ => choice($.ppcallprim, $.id, $.do_expr, $.paren),
+    _exprprim: ($) => choice($._ppcallprim, $.id, $.do_expr, $.paren),
 
-    varargs: $ => "...",
+    varargs: ($) => "...",
 
-    type_expr: $ => seq("@", $.type),
+    type_expr: ($) => seq("@", $.type),
 
-    nil: $ => "nil",
+    nil: ($) => "nil",
 
-    nilptr: $ => "nilptr",
+    nilptr: ($) => "nilptr",
 
-    boolean: $ => choice("true", "false"),
+    boolean: ($) => choice("true", "false"),
 
-    paren: $ => seq("(", $._expression, ")"),
+    paren: ($) => seq("(", $._expression, ")"),
 
-    do_expr: $ =>
+    do_expr: ($) =>
       seq(
         "(",
         alias("do", $.do_start),
@@ -256,53 +256,53 @@ module.exports = grammar({
         ")",
       ),
 
-    string: $ => choice($._string_short, $._string_long),
-    _string_short: $ => {
+    string: ($) => choice($._string_short, $._string_long),
+    _string_short: ($) => {
       const content = prec(1, /[^\n'"]*/);
       const double_quote = seq('"', content, '"');
       const single_quote = seq("'", content, "'");
       return token(choice(double_quote, single_quote));
     },
-    _string_long: $ => seq($.block_start, $.block_content, $.block_end),
+    _string_long: ($) => seq($.block_start, $.block_content, $.block_end),
 
-    number: $ => choice($._hex_number, $._bin_number, $._dec_number),
-    _dec_number: $ =>
+    number: ($) => choice($._hex_number, $._bin_number, $._dec_number),
+    _dec_number: ($) =>
       seq(
         alias($._dec_prefix, $.dec_number),
         optional_seq(/[eE]/, alias($._exp_digits, $.exponent)),
       ),
-    _hex_number: $ =>
+    _hex_number: ($) =>
       seq(
         "0",
         /[xX]/,
         alias($._hex_prefix, $.hex_number),
         optional_seq(/[pP]/, alias($._exp_digits, $.exponent)),
       ),
-    _bin_number: $ =>
+    _bin_number: ($) =>
       seq(
         "0",
         /[bB]/,
         alias($._bin_prefix, $.bin_number),
         optional_seq(/[pP]/, alias($._exp_digits, $.exponent)),
       ),
-    _dec_prefix: $ =>
+    _dec_prefix: ($) =>
       choice(
         prec.left(2, seq(/[0-9]+/, optional_seq(".", /[0-9]*/))),
         prec.left(1, seq(".", /[0-9]+/)),
       ),
-    _hex_prefix: $ =>
+    _hex_prefix: ($) =>
       choice(
         prec.left(2, seq(/[0-9a-fA-F]+/, optional_seq(".", /[0-9a-fA-F]*/))),
         prec.left(1, seq(".", /[0-9a-fA-F]+/)),
       ),
-    _bin_prefix: $ =>
+    _bin_prefix: ($) =>
       choice(
         prec.left(2, seq(/[01]+/, optional_seq(".", /[01]*/))),
         prec.left(1, seq(".", /[01]+/)),
       ),
-    _exp_digits: $ => /[+-]?[0-9]+/,
+    _exp_digits: ($) => /[+-]?[0-9]+/,
 
-    binary_operations: $ =>
+    binary_operations: ($) =>
       choice(
         ...[
           ["or", PREC.OR],
@@ -334,82 +334,87 @@ module.exports = grammar({
         ),
       ),
 
-    unary_operations: $ =>
+    unary_operations: ($) =>
       prec.left(
         PREC.UNARY,
         seq(choice("not", "-", "#", "~", "&", "$"), $._expression),
       ),
 
-    preprocess_expr: $ =>
+    preprocess_expr: ($) =>
       seq("#[", alias($._expression, $.preprocess_content), "]#"),
-    preprocess_name: $ =>
+    preprocess_name: ($) =>
       seq("#|", alias($._expression, $.preprocess_content), "|#"),
-    _ppcallprim: $ => alias(seq($._name, "!"), $.preprocess_expr),
+    _ppcallprim: ($) => alias(seq($._name, "!"), $.preprocess_expr),
 
-    init_list: $ =>
+    init_list: ($) =>
       seq(
         "{",
         optional_seq(
-          $.field,
-          repeat_seq($.fieldsep, $.field),
-          optional($.fieldsep),
+          $._field,
+          repeat_seq($._fieldsep, $._field),
+          optional($._fieldsep),
         ),
         "}",
       ),
-    field: $ => choice($.pair, $._expression),
-    fieldsep: $ => choice(",", ";"),
+    _field: ($) => choice($.pair, $._expression),
+    _fieldsep: ($) => choice(",", ";"),
 
-    pair: $ =>
+    pair: ($) =>
       choice(
         seq("[", $._expression, "]", "=", $._expression),
         seq($._name, "=", $._expression),
         seq("=", $.id),
       ),
 
-    typedecl: $ =>
-      prec(2, seq(alias($._name, $.argname), ":", $.type, optional($.annots))),
+    _typedecl: ($) =>
+      prec(2, seq(alias($._name, $.argname), ":", $.type, optional($._annots))),
 
-    id: $ => choice($.preprocess_expr, $._name),
-    iddecl: $ => seq($.iddecl, optional($.annots)),
-    _iddecl: $ => seq(alias($._name, $.id), optional_seq(":", $.id)),
+    id: ($) => choice($.preprocess_expr, $._name),
+    iddecl: ($) => seq($._iddecl, optional($._annots)),
+    _iddecl: ($) => seq(alias($._name, $.id), optional_seq(":", $.id)),
 
-    annotation: $ =>
-      seq(alias($._name, $.annotname), alias($.annotargs, $.args)),
+    annotation: ($) =>
+      seq(alias($._name, $.annotname), alias($._annotargs, $.args)),
 
-    _name: $ => choice($.preprocess_name, /[_a-zA-Z][_a-zA-Z0-9]*/),
+    _name: ($) => choice($.preprocess_name, /[_a-zA-Z][_a-zA-Z0-9]*/),
 
     // Suffixes
 
-    default_call: $ => $.callargs,
-    call_method: $ => seq(":", alias($._name, $.funcname), $.callargs),
-    dot_index: $ => seq(".", $._name),
-    colon_index: $ => seq(":", $._name),
-    key_index: $ => seq("[", $._expression, "]"),
+    default_call: ($) => $._callargs,
+    call_method: ($) => seq(":", alias($._name, $.funcname), $._callargs),
+    dot_index: ($) => seq(".", $._name),
+    colon_index: ($) => seq(":", $._name),
+    key_index: ($) => seq("[", $._expression, "]"),
 
-    indexsuffix: $ => choice($.dot_index, $.key_index),
-    callsuffix: $ => choice($.default_call, $.call_method),
+    indexsuffix: ($) => choice($.dot_index, $.key_index),
+    callsuffix: ($) => choice($.default_call, $.call_method),
 
-    _call: $ =>
-      seq(
-        repeat1(
-          choice($._exprprim, seq(repeat1($.indexsuffix), $.callsuffix)),
+    _call: ($) =>
+      prec.left(
+        seq(
+          repeat1(
+            choice($._exprprim, seq(repeat1($.indexsuffix), $.callsuffix)),
+          ),
         ),
       ),
 
     // Lists
 
-    callargs: $ =>
-      prec(2, choice(
-        seq(
-          "(",
-          optional_seq($._expression, repeat_seq(",", $._expression)),
-          ")",
+    _callargs: ($) =>
+      prec(
+        2,
+        choice(
+          seq(
+            "(",
+            optional_seq($._expression, repeat_seq(",", $._expression)),
+            ")",
+          ),
+          $.init_list,
+          $.string,
         ),
-        $.init_list,
-        $.string,
-      )),
+      ),
 
-    annotargs: $ =>
+    _annotargs: ($) =>
       choice(
         seq(
           "(",
@@ -421,10 +426,19 @@ module.exports = grammar({
         $.preprocess_expr,
       ),
 
-      funcargs: $ =>
-        optional(choice(seq($.iddecl, repeat_seq(",", $.iddecl), optional_seq(",", $.varargs_type)), $.varargs_type)),
+    _funcargs: ($) =>
+      optional(
+        choice(
+          seq(
+            $._iddecl,
+            repeat_seq(",", $._iddecl),
+            optional_seq(",", $.varargs_type),
+          ),
+          $.varargs_type,
+        ),
+      ),
 
-    funcrets: $ =>
+    _funcrets: ($) =>
       choice(
         seq(
           "(",
@@ -435,76 +449,76 @@ module.exports = grammar({
         alias($.type, $.rettype),
       ),
 
-    annots: $ => seq("<", $.annotation, repeat_seq(",", $.annotation), ">"),
-    iddecls: $ => seq($.iddecl, repeat_seq(",", $.iddecl)),
+    _annots: ($) => seq("<", $.annotation, repeat_seq(",", $.annotation), ">"),
+    _iddecls: ($) => seq($._iddecl, repeat_seq(",", $._iddecl)),
 
     // Types
 
-    record_type: $ =>
+    record_type: ($) =>
       seq(
         "record",
         "{",
         optional_seq(
-          $.record_field,
-          repeat_seq($.fieldsep, $.record_field),
-          optional($.fieldsep),
+          $._record_field,
+          repeat_seq($._fieldsep, $._record_field),
+          optional($._fieldsep),
         ),
         "}",
       ),
-    record_field: $ => seq($._name, ":", $.type),
+    _record_field: ($) => seq($._name, ":", $.type),
 
-    union_type: $ =>
+    union_type: ($) =>
       seq(
         "union",
         "{",
         optional_seq(
-          $.union_field,
-          repeat_seq($.fieldsep, $.union_field),
-          optional($.fieldsep),
+          $._union_field,
+          repeat_seq($._fieldsep, $._union_field),
+          optional($._fieldsep),
         ),
         "}",
       ),
-    union_field: $ => choice(seq($._name, ":", $.type), seq($.type)),
+    _union_field: ($) => choice(seq($._name, ":", $.type), seq($.type)),
 
-    enum_type: $ =>
+    enum_type: ($) =>
       seq(
         "enum",
         optional_seq("(", $.type, ")"),
         "{",
         optional_seq(
-          $.enum_field,
-          repeat_seq($.fieldsep, $.enum_field),
-          optional($.fieldsep),
+          $._enum_field,
+          repeat_seq($._fieldsep, $._enum_field),
+          optional($._fieldsep),
         ),
         "}",
       ),
-    enum_field: $ => seq($._name, optional_seq("=", $._expression)),
+    _enum_field: ($) => seq($._name, optional_seq("=", $._expression)),
 
-    func_type: $ =>
+    func_type: ($) =>
       seq(
         "function",
         "(",
         optional($._functypeargs),
         ")",
-        optional_seq(":", $.funcrets),
+        optional_seq(":", $._funcrets),
       ),
 
-    array_type: $ =>
+    array_type: ($) =>
       seq("array", "(", $.type, optional_seq(",", $._expression), ")"),
 
-    pointer_type: $ => seq("pointer", "(", $.type, ")"),
+    pointer_type: ($) => seq("pointer", "(", $.type, ")"),
 
-    variant_type: $ => seq("variant", "(", $._typeargs, ")"),
+    variant_type: ($) => seq("variant", "(", $._typeargs, ")"),
 
-    varargs_type: $ => prec(2, seq("...", optional_seq(":", $._name))),
+    varargs_type: ($) => prec(2, seq("...", optional_seq(":", $._name))),
 
     // Type lists
 
-    _typearg: $ =>
+    _typearg: ($) =>
       prec(1, choice($.type, seq("(", $._expression, ")"), $._expression)),
-    _typeargs: $ => seq($._typearg, repeat_seq(",", $._typearg)),
+    _typeargs: ($) => seq($._typearg, repeat_seq(",", $._typearg)),
 
-    _functypeargs: $ =>
+    _functypeargs: ($) =>
       choice(
         seq(
           alias($._functypearg, $.argtype),
@@ -513,11 +527,11 @@ module.exports = grammar({
         ),
         alias($.varargs_type, $.argtype),
       ),
-    _functypearg: $ => choice($.typedecl, $._typearg),
+    _functypearg: ($) => choice($._typedecl, $._typearg),
 
-    typegeneric: $ => choice(seq("(", $._typeargs, ")"), $.init_list),
+    _typegeneric: ($) => choice(seq("(", $._typeargs, ")"), $.init_list),
 
-    type: $ =>
+    type: ($) =>
       prec(
         2,
         choice(
@@ -533,12 +547,12 @@ module.exports = grammar({
             PREC.TGENERIC,
             seq(
               alias($.id, $.genericname),
-              alias($.typegeneric, $.genericargs),
+              alias($._typegeneric, $.genericargs),
             ),
           ),
           repeat1_seq(
             choice(
-              ...["*", "?", seq("[", optional($._expression))].map(c =>
+              ...["*", "?", seq("[", optional($._expression))].map((c) =>
                 prec.left(PREC.TUNARY, c),
               ),
             ),
@@ -551,7 +565,7 @@ module.exports = grammar({
         ),
       ),
 
-    comment: $ =>
+    comment: ($) =>
       choice(
         seq("--", field("content", /[^\n\r]*/)),
         seq(
