@@ -12,9 +12,10 @@ To do tree-sitter code generation:
 bun gen
 ```
 
-To run tests
+To run tests:
+
 ```bash
-bun test
+bun run test
 ```
 
 This project was created using `bun init` in bun v1.1.21. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
