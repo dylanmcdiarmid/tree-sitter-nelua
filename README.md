@@ -6,10 +6,15 @@ To install dependencies:
 bun install
 ```
 
-To run:
+To do tree-sitter code generation:
 
 ```bash
-bun run index.ts
+bun gen
+```
+
+To run tests
+```bash
+bun test
 ```
 
 This project was created using `bun init` in bun v1.1.21. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
