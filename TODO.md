@@ -1,4 +1,6 @@
 # TODO
+- [ ] Explore full rewrite
+  - This is happening in a local repo for now, it's partly to understand how tree-sitter works a bit better now that I've worked trying to adapt tree-sitter-lua
 - [ ] Port nelua-lang tests
   - `spec/syntaxdef_spec.lua`
   - Change things up where it makes sense
