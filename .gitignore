@@ -175,3 +175,6 @@ dist
 .DS_Store
 
 *.so
+
+# tree-sitter generate files
+target/

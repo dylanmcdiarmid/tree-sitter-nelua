@@ -4,7 +4,7 @@ semicolon_only
 ;
 --------------------------------------------------------------------------------
 
-(source_file (Block)) 
+(source_file) 
 
 ================================================================================
 shebang
@@ -48,9 +48,44 @@ long comment
 long
 comment
 ]]
+--[=[ [[a
+long
+comment
+]] ]=]
+--[==[ 
+    [=[a
+    long
+    comment
+    ]=] 
+  [[a
+  long 
+  comment]] ]==]
 --------------------------------------------------------------------------------
 (source_file
-  (comment)
-  (comment)
-  (comment)
+  (comment
+    (block_comment_start)
+    (block_content)
+    (block_end)
+  )
+  (comment
+    (block_comment_start)
+    (block_content)
+    (block_end)
+  )
+  (comment
+    (block_comment_start)
+    (block_content)
+    (block_end)
+  )
+  (comment
+    (block_comment_start)
+    (block_content)
+    (block_end)
+  )
+  (comment
+    (block_comment_start)
+    (block_content)
+    (block_end)
+  )
 )
+

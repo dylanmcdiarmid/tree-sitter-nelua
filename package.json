@@ -19,6 +19,7 @@
   },
   "scripts": {
     "gen": "tree-sitter generate",
+    "test": "tree-sitter test",
     "build": "tree-sitter build",
     "genbuild": "tree-sitter generate && tree-sitter build",
     "install": "node-gyp-build",

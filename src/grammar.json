@@ -3654,7 +3654,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "block_start"
+              "name": "block_comment_start"
             },
             {
               "type": "FIELD",
@@ -3693,6 +3693,10 @@
     {
       "type": "SYMBOL",
       "name": "block_start"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "block_comment_start"
     },
     {
       "type": "SYMBOL",

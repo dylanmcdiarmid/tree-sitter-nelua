@@ -440,11 +440,11 @@
       "required": false,
       "types": [
         {
-          "type": "block_end",
+          "type": "block_comment_start",
           "named": true
         },
         {
-          "type": "block_start",
+          "type": "block_end",
           "named": true
         }
       ]
@@ -3067,6 +3067,10 @@
   {
     "type": "array",
     "named": false
+  },
+  {
+    "type": "block_comment_start",
+    "named": true
   },
   {
     "type": "block_content",

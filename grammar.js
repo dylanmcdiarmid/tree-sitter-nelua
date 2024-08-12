@@ -31,7 +31,7 @@ const PREC = {
 module.exports = grammar({
   name: "nelua",
 
-  externals: ($) => [$.block_start, $.block_content, $.block_end],
+  externals: ($) => [$.block_start, $.block_comment_start, $.block_content, $.block_end],
 
   extras: ($) => [/[\n\r]/, /\s/, $.comment],
 
@@ -570,7 +570,7 @@ module.exports = grammar({
         seq("--", field("content", /[^\n\r]*/)),
         seq(
           "--",
-          $.block_start,
+          $.block_comment_start,
           field("content", $.block_content),
           $.block_end,
         ),

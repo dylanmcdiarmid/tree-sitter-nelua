@@ -11,6 +11,8 @@ DEFS_Debug := \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
+	'-DOPENSSL_NO_PINSHARED' \
+	'-DOPENSSL_THREADS' \
 	'-DNAPI_CPP_EXCEPTIONS' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
@@ -37,13 +39,13 @@ CFLAGS_CC_Debug := \
 	-std=gnu++17
 
 INCS_Debug := \
-	-I/home/komo/.cache/node-gyp/22.5.1/include/node \
-	-I/home/komo/.cache/node-gyp/22.5.1/src \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/openssl/config \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/openssl/openssl/include \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/uv/include \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/zlib \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/v8/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/include/node \
+	-I/home/dylan/.cache/node-gyp/22.5.1/src \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/openssl/config \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/openssl/openssl/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/uv/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/zlib \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/v8/include \
 	-I$(srcdir)/src \
 	-I$(srcdir)/node_modules/node-addon-api
 
@@ -56,6 +58,8 @@ DEFS_Release := \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
+	'-DOPENSSL_NO_PINSHARED' \
+	'-DOPENSSL_THREADS' \
 	'-DNAPI_CPP_EXCEPTIONS' \
 	'-DBUILDING_NODE_EXTENSION'
 
@@ -80,13 +84,13 @@ CFLAGS_CC_Release := \
 	-std=gnu++17
 
 INCS_Release := \
-	-I/home/komo/.cache/node-gyp/22.5.1/include/node \
-	-I/home/komo/.cache/node-gyp/22.5.1/src \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/openssl/config \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/openssl/openssl/include \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/uv/include \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/zlib \
-	-I/home/komo/.cache/node-gyp/22.5.1/deps/v8/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/include/node \
+	-I/home/dylan/.cache/node-gyp/22.5.1/src \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/openssl/config \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/openssl/openssl/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/uv/include \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/zlib \
+	-I/home/dylan/.cache/node-gyp/22.5.1/deps/v8/include \
 	-I$(srcdir)/src \
 	-I$(srcdir)/node_modules/node-addon-api
 

@@ -6,6 +6,7 @@
 
 enum TokenType {
   BLOCK_START,
+  BLOCK_COMMENT_START,
   BLOCK_CONTENT,
   BLOCK_END,
 };
@@ -102,10 +103,20 @@ static bool scan_block_content(TSLexer *lexer) {
   return false;
 }
 
-static bool scan_comment_start(TSLexer *lexer) {
+static bool scan_block_start_outer(TSLexer *lexer) {
   if (scan_block_start(lexer)) {
     lexer->mark_end(lexer);
     lexer->result_symbol = BLOCK_START;
+    return true;
+  }
+
+  return false;
+}
+
+static bool scan_comment_start(TSLexer *lexer) {
+  if (scan_block_start(lexer)) {
+    lexer->mark_end(lexer);
+    lexer->result_symbol = BLOCK_COMMENT_START;
     return true;
   }
 
@@ -146,10 +157,17 @@ bool tree_sitter_nelua_external_scanner_scan(void *payload, TSLexer *lexer, cons
     return true;
   }
 
+  // Comments need the equivalent of a `token.immediate`, so don't skip whitespace
+  if (valid_symbols[BLOCK_COMMENT_START]) {
+    if (scan_comment_start(lexer)) {
+      return true;
+    }
+  }
+
   skip_whitespaces(lexer);
 
   if (valid_symbols[BLOCK_START]) {
-    if (scan_comment_start(lexer)) {
+    if (scan_block_start_outer(lexer)) {
       return true;
     }
   }
